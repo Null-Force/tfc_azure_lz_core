@@ -17,7 +17,19 @@ variable "mng_groups_names" {
 
 locals {
   parent_mng_group_name = var.parent_mng_group_name
+
   mng_groups_parsed_l1 = jsondecode(var.mng_groups_names)
+
+  mng_groups_parsed_l2 = {
+    for group, names in local.mng_groups_parsed_l1 :
+    group => [
+      for name in names : {
+        name  = name
+        group = group
+      }
+    ]
+    if length(names) > 0
+  }
 }
 
 
@@ -36,13 +48,13 @@ resource "azurerm_management_group" "mng_groups_l1" {
   }
 }
 
-# resource "azurerm_management_group" "mng_groups_l2" {
-#   for_each = local.mng_groups_map
+resource "azurerm_management_group" "mng_groups_l2" {
+  for_each = local.mng_groups_parsed_l2
 
-#   display_name = each.value.name
-#   parent_management_group_id = azurerm_management_group.mng_groups_l1[each.key].id
+  display_name = each.value.name
+  parent_management_group_id = azurerm_management_group.mng_groups_l1[each.key].id
 
-#   lifecycle {
-#     ignore_changes = [parent_management_group_id]
-#   }
-# }
+  lifecycle {
+    ignore_changes = [parent_management_group_id]
+  }
+}
