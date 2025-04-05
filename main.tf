@@ -32,6 +32,10 @@ locals {
   }
 }
 
+output "names_l2" {
+  value = local.mng_groups_parsed_l2  
+}
+
 
 resource "azurerm_management_group" "parent" {  
   display_name = local.parent_mng_group_name
