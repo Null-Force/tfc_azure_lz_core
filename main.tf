@@ -6,17 +6,6 @@ variable "parent_mng_group_name" {
   description = "The names of the parent management groups"
   type        = string
   default     = "null_power"
-
-  # Validation to ensure names meet Azure naming requirements
-  validation {
-    condition = alltrue([
-      for name in var.parent_mng_group_name : 
-      can(regex("^[a-z0-9-_]+$", name)) &&  # Only lowercase alphanumeric, underscores
-      length(name) >= 3 &&  # Minimum length
-      length(name) <= 30    # Maximum length for management group names
-    ])
-    error_message = "Management group names must be 3-30 characters long, containing only alphanumeric characters and underscores."
-  }
 }
 
 variable "mng_groups_names" {
