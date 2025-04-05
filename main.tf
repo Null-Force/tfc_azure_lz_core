@@ -57,7 +57,7 @@ resource "azurerm_management_group" "mng_groups_l2" {
   for_each = local.mng_groups_parsed_l2
 
   display_name = each.value.name
-  parent_management_group_id = azurerm_management_group.mng_groups_l1[each.key].id
+  parent_management_group_id = azurerm_management_group.mng_groups_l1[each.value.group].id
 
   lifecycle {
     ignore_changes = [parent_management_group_id]
