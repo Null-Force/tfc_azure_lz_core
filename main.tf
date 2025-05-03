@@ -30,10 +30,9 @@ resource "azuread_group" "owners" {
     azurerm_management_group.second_level
   )
 
-  display_name            = "${each.value.display_name} - owners"
+  display_name            = "${each.value.display_name} - mg - owners"
   owners                  = [data.azuread_client_config.current.object_id]
   security_enabled        = true
-  assignable_to_role      = true
   description             = "Owners group for ${each.value.display_name} management group"
   prevent_duplicate_names = false
 }
