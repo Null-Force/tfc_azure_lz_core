@@ -36,11 +36,11 @@ locals {
       "${role}_${group_key}" => {
         role_definition_name    = role
         display_name            = "management group - ${group_value.display_name} - ${role}"
-        description             = "${role}'s group for ${group_value.display_name} management group"        
+        description             = "${role}'s group for ${group_value.display_name} management group"
         owners                  = [data.azuread_client_config.current.object_id]
         security_enabled        = true
         prevent_duplicate_names = false
-        scope = local.created_management_groups[group_key].id
+        scope                   = local.created_management_groups[group_key].id
       }
     }
   ]...)
@@ -50,6 +50,7 @@ output "roles_and_groups" {
   value = local.roles_and_groups
 }
 
+## Create groups for each management group
 resource "azuread_group" "default" {
   for_each = local.roles_and_groups
 
@@ -57,16 +58,17 @@ resource "azuread_group" "default" {
   owners                  = each.value.owners
   security_enabled        = each.value.security_enabled
   description             = each.value.description
-  prevent_duplicate_names = each.value.prevent_duplicate_names  
+  prevent_duplicate_names = each.value.prevent_duplicate_names
 }
 
-# resource "azurerm_role_assignment" "default" {
-#   for_each = local.roles_and_groups
+## Assign roles to the groups
+resource "azurerm_role_assignment" "default" {
+  for_each = local.roles_and_groups
 
-#   scope                = 
-#   role_definition_name = each.value.role_definition_name
-#   principal_id         = azuread_group.default[each.key].object_id
-# }
+  scope                = each.value.scope
+  role_definition_name = each.value.role_definition_name
+  principal_id         = azuread_group.default[each.key].object_id
+}
 
 
 
