@@ -51,57 +51,79 @@ output "roles_and_groups" {
   value = local.roles_and_groups
 }
 
-## Create the owners group for each management group
-resource "azuread_group" "owners" {
-  for_each = local.created_management_groups
+# resource "azuread_group" "default" {
+#   for_each = local.roles_and_groups
 
-  display_name            = "management group - ${each.value.display_name} - owners"
-  owners                  = [data.azuread_client_config.current.object_id]
-  security_enabled        = true
-  description             = "Owners group for ${each.value.display_name} management group"
-  prevent_duplicate_names = false
-}
+#   display_name            = each.value.display_name
+#   owners                  = each.value.owners
+#   security_enabled        = each.value.security_enabled
+#   description             = each.value.description
+#   prevent_duplicate_names = each.value.prevent_duplicate_names
+# }
 
-resource "azurerm_role_assignment" "owners" {
-  for_each = local.created_management_groups
+# resource "azurerm_role_assignment" "default" {
+#   for_each = local.roles_and_groups
 
-  scope                = each.value.id
-  role_definition_name = "Owner"
-  principal_id         = azuread_group.owners[each.key].object_id
-}
+#   scope                = each.value.scope
+#   role_definition_name = each.value.role_definition_name
+#   principal_id         = azuread_group.default[each.key].object_id
+# }
 
-## Create the contributors group for each management group
-resource "azuread_group" "contributors" {
-  for_each = local.created_management_groups
 
-  display_name            = "management group - ${each.value.display_name} - contributors"
-  owners                  = [data.azuread_client_config.current.object_id]
-  security_enabled        = true
-  description             = "Contributors group for ${each.value.display_name} management group"
-  prevent_duplicate_names = false
-}
-resource "azurerm_role_assignment" "contributors" {
-  for_each = local.created_management_groups
 
-  scope                = each.value.id
-  role_definition_name = "Contributor"
-  principal_id         = azuread_group.contributors[each.key].object_id
-}
 
-## Create the readers group for each management group
-resource "azuread_group" "readers" {
-  for_each = local.created_management_groups
 
-  display_name            = "management group - ${each.value.display_name} - readers"
-  owners                  = [data.azuread_client_config.current.object_id]
-  security_enabled        = true
-  description             = "Readers group for ${each.value.display_name} management group"
-  prevent_duplicate_names = false
-}
-resource "azurerm_role_assignment" "readers" {
-  for_each = local.created_management_groups
+# ## Create the owners group for each management group
+# resource "azuread_group" "owners" {
+#   for_each = local.created_management_groups
 
-  scope                = each.value.id
-  role_definition_name = "Reader"
-  principal_id         = azuread_group.readers[each.key].object_id
-}
+#   display_name            = "management group - ${each.value.display_name} - owners"
+#   owners                  = [data.azuread_client_config.current.object_id]
+#   security_enabled        = true
+#   description             = "Owners group for ${each.value.display_name} management group"
+#   prevent_duplicate_names = false
+# }
+
+# resource "azurerm_role_assignment" "owners" {
+#   for_each = local.created_management_groups
+
+#   scope                = each.value.id
+#   role_definition_name = "Owner"
+#   principal_id         = azuread_group.owners[each.key].object_id
+# }
+
+# ## Create the contributors group for each management group
+# resource "azuread_group" "contributors" {
+#   for_each = local.created_management_groups
+
+#   display_name            = "management group - ${each.value.display_name} - contributors"
+#   owners                  = [data.azuread_client_config.current.object_id]
+#   security_enabled        = true
+#   description             = "Contributors group for ${each.value.display_name} management group"
+#   prevent_duplicate_names = false
+# }
+# resource "azurerm_role_assignment" "contributors" {
+#   for_each = local.created_management_groups
+
+#   scope                = each.value.id
+#   role_definition_name = "Contributor"
+#   principal_id         = azuread_group.contributors[each.key].object_id
+# }
+
+# ## Create the readers group for each management group
+# resource "azuread_group" "readers" {
+#   for_each = local.created_management_groups
+
+#   display_name            = "management group - ${each.value.display_name} - readers"
+#   owners                  = [data.azuread_client_config.current.object_id]
+#   security_enabled        = true
+#   description             = "Readers group for ${each.value.display_name} management group"
+#   prevent_duplicate_names = false
+# }
+# resource "azurerm_role_assignment" "readers" {
+#   for_each = local.created_management_groups
+
+#   scope                = each.value.id
+#   role_definition_name = "Reader"
+#   principal_id         = azuread_group.readers[each.key].object_id
+# }
