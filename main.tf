@@ -37,8 +37,8 @@ locals {
         role_definition_name    = role
         display_name            = "management group - ${group_value.display_name} - ${role}"
         description             = "${role}'s group for ${group_value.display_name} management group"
-        principal_id            = group_value.object_id
-        scope                   = group_value.id
+        principal_id            = azuread_group.owners[group_key].object_id
+        scope                   = azuread_group.owners[group_key].id
         owners                  = [data.azuread_client_config.current.object_id]
         security_enabled        = true
         prevent_duplicate_names = false
