@@ -14,9 +14,9 @@ resource "azurerm_management_group" "first_level" {
 }
 
 # ## Create the second level management groups
-# resource "azurerm_management_group" "second_level" {
-#   for_each = local.second_level_mng_group_map
+resource "azurerm_management_group" "second_level" {
+  for_each = local.second_level_mng_group_map
 
-#   display_name               = each.value.name
-#   parent_management_group_id = azurerm_management_group.first_level[each.value.parent].id
-# }
+  display_name               = each.value.name
+  parent_management_group_id = azurerm_management_group.first_level[each.value.parent].id
+}

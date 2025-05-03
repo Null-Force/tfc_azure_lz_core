@@ -5,15 +5,15 @@
       "children": {
         "management": {
           "name": "Management",
-          "description": "Management group for corporate management resources, such as logs, monitoring, update manager, defender, policies, compliance, etc."          
+          "description": "Management group for corporate management resources, such as logs, monitoring, update manager, defender, policies, compliance, etc."
         },
         "identity": {
           "name": "Identity",
-          "description": "Management group for corporate identity resources. Application identities should be part of the application resource group."          
+          "description": "Management group for corporate identity resources. Application identities should be part of the application resource group."
         },
         "connectivity": {
           "name": "Connectivity",
-          "description": "Management group for corporate connectivity resources. Application connectivity resources should be part of the application resource group."          
+          "description": "Management group for corporate connectivity resources. Application connectivity resources should be part of the application resource group."
         }
       }
     },
@@ -23,43 +23,42 @@
       "children": {
         "corporate": {
           "name": "Corporate",
-          "description": "Management group for corporate resources, such as internal-use software like SAP, Priority, and other resources required by the corporation, but not for managing Azure."          
+          "description": "Management group for corporate resources, such as internal-use software like SAP, Priority, and other resources required by the corporation, but not for managing Azure."
         },
         "development": {
           "name": "Development",
-          "description": "Management group for the development team."          
+          "description": "Management group for the development team."
         },
         "quality_assurance": {
           "name": "Quality Assurance",
-          "description": "Management group for the QA team."          
+          "description": "Management group for the QA team."
         },
         "demo": {
           "name": "Demo",
-          "description": "Management group for demos used by sales and marketing teams."          
+          "description": "Management group for demos used by sales and marketing teams."
         },
         "production": {
           "name": "Production",
-          "description": "Management group for customer resources."          
+          "description": "Management group for customer resources."
         },
         "training": {
           "name": "Training",
-          "description": "Management group for training resources."          
+          "description": "Management group for training resources."
         },
         "shared_services": {
           "name": "Shared Services",
-          "description": "Management group for shared services resources."          
+          "description": "Management group for shared services resources."
         }
       }
     },
     "decommissioned": {
       "name": "Decommissioned",
       "description": "Management group for decommissioned subscriptions.",
-      "children": {}    
-
+      "children": {}
     },
     "sandbox": {
       "name": "Sandbox",
       "description": "Management group for sandbox subscriptions.",
-      "children": {}          
+      "children": {}
     }
   }
