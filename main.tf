@@ -37,3 +37,14 @@ resource "azuread_group" "owners" {
   description             = "Owners group for ${each.value.display_name} management group"
   prevent_duplicate_names = false
 }
+
+resource "azurerm_role_assignment" "owners" {
+  for_each = merge(
+    azurerm_management_group.first_level,
+    azurerm_management_group.second_level
+  )
+
+  scope                = each.value.id
+  role_definition_name = "Owner"
+  principal_id         = azuread_group.owners[each.key].object_id
+}
