@@ -32,18 +32,23 @@ locals {
   role_types = ["Owner", "Contributor", "Reader"]
   roles_and_groups = merge([
     for group_key, group_value in local.created_management_groups : {
-      for role in local.role_types : 
+      for role in local.role_types :
       "${role}_${group_key}" => {
-        role_name = role
-        display_name = "management group - ${group_value.display_name} - ${role}"
-        description = "${role} group for ${group_value.display_name} management group"
+        role_definition_name    = role
+        display_name            = "management group - ${group_value.display_name} - ${role}"
+        description             = "${role}'s group for ${group_value.display_name} management group"
+        principal_id            = group_value.object_id
+        scope                   = group_value.id
+        owners                  = [data.azuread_client_config.current.object_id]
+        security_enabled        = true
+        prevent_duplicate_names = false
       }
-    }    
+    }
   ]...)
 }
 
 output "roles_and_groups" {
-  value = local.roles_and_groups  
+  value = local.roles_and_groups
 }
 
 ## Create the owners group for each management group
