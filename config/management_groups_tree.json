@@ -1,0 +1,64 @@
+{
+    "Platform": {
+      "name": "Platform",
+      "description": "Management group for platform resources",
+      "children": [
+        {
+          "name": "Management",
+          "description": "Management group for management resources",
+          "children": []
+        },
+        {
+          "name": "Identity",
+          "description": "Management group for identity resources",
+          "children": []
+        },
+        {
+          "name": "Connectivity",
+          "description": "Management group for connectivity resources",
+          "children": []
+        }
+      ]
+    },
+    "LandingZones": {
+      "name": "Landing Zones",
+      "description": "Management group for landing zones",
+      "children": [
+        {
+          "name": "Corporate",
+          "description": "Management group for corporate resources",
+          "children": []
+        },
+        {
+          "name": "Development",
+          "description": "Management group for development resources",
+          "children": []
+        },
+        {
+          "name": "QualityAssurance",
+          "description": "Management group for quality assurance resources",
+          "children": []
+        },
+        {
+          "name": "Demo",
+          "description": "Management group for demo resources",
+          "children": []
+        },
+        {
+          "name": "Production",
+          "description": "Management group for production resources",
+          "children": []
+        }
+      ]
+    },
+    "Decommissioned": {
+      "name": "Decommissioned",
+      "description": "Management group for decommissioned subscriptions",
+      "children": []
+    },
+    "Sandbox": {
+      "name": "Sandbox",
+      "description": "Management group for sandbox subscriptions",
+      "children": []
+    }
+  }
