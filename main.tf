@@ -30,7 +30,7 @@ resource "azurerm_role_definition" "owner" {
     azurerm_management_group.first_level,
     azurerm_management_group.second_level
   )
-  name        = "${each.value.name} - owner"
+  name        = "${each.value.display_name} - owner"
   scope       = each.value.id
   description = "Custom owner role scoped to a management group."
   permissions {
