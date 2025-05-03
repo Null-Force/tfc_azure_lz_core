@@ -42,10 +42,7 @@ resource "azuread_group" "owners" {
 }
 
 resource "azurerm_role_assignment" "owners" {
-  for_each = merge(
-    azurerm_management_group.first_level,
-    azurerm_management_group.second_level
-  )
+  for_each = local.created_management_groups
 
   scope                = each.value.id
   role_definition_name = "Owner"
@@ -54,10 +51,7 @@ resource "azurerm_role_assignment" "owners" {
 
 ## Create the contributors group for each management group
 resource "azuread_group" "contributors" {
-  for_each = merge(
-    azurerm_management_group.first_level,
-    azurerm_management_group.second_level
-  )
+  for_each = local.created_management_groups
 
   display_name            = "management group - ${each.value.display_name} - contributors"
   owners                  = [data.azuread_client_config.current.object_id]
@@ -66,10 +60,7 @@ resource "azuread_group" "contributors" {
   prevent_duplicate_names = false
 }
 resource "azurerm_role_assignment" "contributors" {
-  for_each = merge(
-    azurerm_management_group.first_level,
-    azurerm_management_group.second_level
-  )
+  for_each = local.created_management_groups
 
   scope                = each.value.id
   role_definition_name = "Contributor"
@@ -78,10 +69,7 @@ resource "azurerm_role_assignment" "contributors" {
 
 ## Create the readers group for each management group
 resource "azuread_group" "readers" {
-  for_each = merge(
-    azurerm_management_group.first_level,
-    azurerm_management_group.second_level
-  )
+  for_each = local.created_management_groups
 
   display_name            = "management group - ${each.value.display_name} - readers"
   owners                  = [data.azuread_client_config.current.object_id]
@@ -90,10 +78,7 @@ resource "azuread_group" "readers" {
   prevent_duplicate_names = false
 }
 resource "azurerm_role_assignment" "readers" {
-  for_each = merge(
-    azurerm_management_group.first_level,
-    azurerm_management_group.second_level
-  )
+  for_each = local.created_management_groups
 
   scope                = each.value.id
   role_definition_name = "Reader"
