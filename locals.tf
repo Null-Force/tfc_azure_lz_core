@@ -21,6 +21,6 @@ locals {
         name   = value.name
         parent = root_key
       }
-    } if length(root_value.children) != null
+    }
   ]...)
 }
