@@ -14,13 +14,13 @@ locals {
   }
 
   # Second level management group
-#   second_level_mng_group_map = merge([
-#     for root_key, root_value in local.management_groups_tree : {
-#       for key, value in root_value.children :
-#       key => {
-#         name   = value.name
-#         parent = root_key
-#       } if length(root_value.children) > 0
-#     } if length(root_value.children) > 0
-#   ]...)
+  second_level_mng_group_map = merge([
+    for root_key, root_value in local.management_groups_tree : {
+      for key, value in root_value.children :
+      key => {
+        name   = value.name
+        parent = root_key
+      } if length(root_value.children) != null
+    } if length(root_value.children) != null
+  ]...)
 }
