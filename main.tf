@@ -24,24 +24,21 @@ resource "azurerm_management_group" "second_level" {
 
 # Create roles and assign them to the management groups
 # Each management group will have owner, contributer and read role
-# To creae a custom role, you need to have Microsoft Entra ID Premium P1 or P2 license
 
-# resource "azurerm_role_definition" "owner" {
-#     for_each = merge(
-#     azurerm_management_group.first_level,
-#     azurerm_management_group.second_level
-#   )
-#   name        = "{each.value.name} - owner"
-#   scope       = each.value.id
-#   description = "Custom owner role scoped to a management group."
-#   permissions {
-#     actions = ["*"]
-#     not_actions = []
-#   }
-#   assignable_scopes = [
-#     each.value.id
-#   ]
-# } 
+resource "azurerm_role_definition" "owner" {
+  for_each = merge(
+    azurerm_management_group.first_level,
+    azurerm_management_group.second_level
+  )
+  name        = "${each.value.name} - owner"
+  scope       = each.value.id
+  description = "Custom owner role scoped to a management group."
+  permissions {
+    actions     = ["*"]
+    not_actions = []
+  }
+  assignable_scopes = [each.value.id]
+}
 
 # resource "azurerm_role_assignment" "owner" {
 #   for_each = merge(
