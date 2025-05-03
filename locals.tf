@@ -23,4 +23,4 @@ locals {
 #       } if length(root_value.children) > 0
 #     } if length(root_value.children) > 0
 #   ]...)
-# }
+}
