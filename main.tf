@@ -40,6 +40,7 @@ locals {
         owners                  = [data.azuread_client_config.current.object_id]
         security_enabled        = true
         prevent_duplicate_names = false
+        scope = local.created_management_groups[group_key].id
       }
     }
   ]...)
@@ -49,20 +50,20 @@ output "roles_and_groups" {
   value = local.roles_and_groups
 }
 
-# resource "azuread_group" "default" {
-#   for_each = local.roles_and_groups
+resource "azuread_group" "default" {
+  for_each = local.roles_and_groups
 
-#   display_name            = each.value.display_name
-#   owners                  = each.value.owners
-#   security_enabled        = each.value.security_enabled
-#   description             = each.value.description
-#   prevent_duplicate_names = each.value.prevent_duplicate_names
-# }
+  display_name            = each.value.display_name
+  owners                  = each.value.owners
+  security_enabled        = each.value.security_enabled
+  description             = each.value.description
+  prevent_duplicate_names = each.value.prevent_duplicate_names  
+}
 
 # resource "azurerm_role_assignment" "default" {
 #   for_each = local.roles_and_groups
 
-#   scope                = each.value.scope
+#   scope                = 
 #   role_definition_name = each.value.role_definition_name
 #   principal_id         = azuread_group.default[each.key].object_id
 # }
