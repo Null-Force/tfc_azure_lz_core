@@ -1,5 +1,4 @@
 # Creage a management groups
-
 ## New root management group
 resource "azurerm_management_group" "parent" {
   display_name = local.parent_mng_group_name
@@ -22,7 +21,6 @@ resource "azurerm_management_group" "second_level" {
 }
 
 # Create Entra ID securety groups for each management group with owners, contributer and reader roles
-
 ## Create groups for each management group
 resource "azuread_group" "default" {
   for_each = local.roles_and_groups
