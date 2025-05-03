@@ -24,11 +24,14 @@ locals {
     }
   ]...)
 
-    created_management_groups = merge(
+  # Merge management groups
+  created_management_groups = merge(
     azurerm_management_group.first_level,
     azurerm_management_group.second_level
   )
 
+  # Create map of groups with their display names and roles
+  # The groups are created for each management group with owners, contributer and reader roles
   role_types = ["Owner", "Contributor", "Reader"]
   roles_and_groups = merge([
     for group_key, group_value in local.created_management_groups : {
