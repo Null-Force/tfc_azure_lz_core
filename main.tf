@@ -23,12 +23,16 @@ resource "azurerm_management_group" "second_level" {
 
 # Create Entra ID securety groups for each management group with owners, contributer and reader roles
 
-## Create the owners group for each management group
-resource "azuread_group" "owners" {
-  for_each = merge(
+locals {
+  created_management_groups = merge(
     azurerm_management_group.first_level,
     azurerm_management_group.second_level
   )
+}
+
+## Create the owners group for each management group
+resource "azuread_group" "owners" {
+  for_each = local.created_management_groups
 
   display_name            = "management group - ${each.value.display_name} - owners"
   owners                  = [data.azuread_client_config.current.object_id]
