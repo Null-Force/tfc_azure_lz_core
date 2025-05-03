@@ -20,7 +20,7 @@ locals {
       key => {
         name   = value.name
         parent = root_key
-      } if length(root_value.children) != null
+      }
     } if length(root_value.children) != null
   ]...)
 }
