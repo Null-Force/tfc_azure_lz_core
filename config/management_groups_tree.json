@@ -53,10 +53,13 @@
     },
     "decommissioned": {
       "name": "Decommissioned",
-      "description": "Management group for decommissioned subscriptions."      
+      "description": "Management group for decommissioned subscriptions.",
+      "children": {}    
+
     },
     "sandbox": {
       "name": "Sandbox",
-      "description": "Management group for sandbox subscriptions."      
+      "description": "Management group for sandbox subscriptions.",
+      "children": {}          
     }
   }
