@@ -5,7 +5,7 @@
       "children": {
         "management": {
           "name": "Management",
-          "description": "Management group for corporate management resources, such as logs, monitoring, update manager, defender, policies, compliance, etc."
+          "description": "Management group for corporate management resources, such as logs, monitoring, dashboards, update manager, defender, policies, compliance, etc."
         },
         "identity": {
           "name": "Identity",
