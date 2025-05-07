@@ -1,63 +1,70 @@
 # tfc_azure_lz_core
 
-Deploy the core infrastructure for the Azure landing zone using Terraform Cloud. This module establishes the foundational management group hierarchy and security principals.
+Deploy core infrastructure for an Azure Landing Zone using Terraform Cloud. This module sets up the foundational management group hierarchy and security principals.
 
 ## Features
 
-- Management Group Hierarchy
+- **Management Group Hierarchy**
   - Root Management Group
-  - Management Groups
-- Azure AD Security Groups
-  - Automated group creation for each management group
-  - RBAC role assignments (Owner, Contributor, Reader)
-- Foundational Governance Structure
+  - Nested Management Groups
+- **Azure AD Security Groups**
+  - Automated group creation per management group
+  - Role assignments (Owner, Contributor, Reader)
+- **Foundational Governance Structure**
 
 ## Prerequisites
 
 - Terraform Cloud account
 - Azure tenant
-- Azure AD application with configured federation (I'm using federation, you can use other auth methods you prefer) and all required permissions (create management groups, create security groups, assign roles)
+- Azure AD application with configured federation (or any other preferred authentication method), with the following permissions:
+  - Create management groups
+  - Create security groups
+  - Assign RBAC roles
 
 ## Technical Requirements
 
-- Terraform ~> 1.0
-- Azure Provider (azurerm) ~> 4.0
-- Azure AD Provider (azuread) ~> 3.0
+- Terraform `~> 1.0`
+- Azure Provider (`azurerm`) `~> 4.0`
+- Azure AD Provider (`azuread`) `~> 3.0`
 
 ## Required Environment Variables
 
-- `ARM_SUBSCRIPTION_ID`: Azure Subscription ID (you first default subscription id, not in use in this deployment, but needed by Terraform)
-- `ARM_TENANT_ID`: Azure Tenant (Directory) ID (value: your tenant ID)
-- `TFC_AZURE_PROVIDER_AUTH`: Enable Terraform Cloud Azure Provider Authentication (value: true)
-- `TFC_AZURE_RUN_CLIENT_ID`: Client ID for Azure AD App used in dynamic credentials (value: your app client ID)
+| Variable                 | Description                                                                         |
+|--------------------------|-------------------------------------------------------------------------------------|
+| `ARM_SUBSCRIPTION_ID`    | Azure Subscription ID (used by Terraform, not directly involved in this deployment) |
+| `ARM_TENANT_ID`          | Azure Tenant (Directory) ID                                                         |
+| `TFC_AZURE_PROVIDER_AUTH`| Enables Terraform Cloud Azure provider authentication (set to `true`)               |
+| `TFC_AZURE_RUN_CLIENT_ID`| Client ID of the Azure AD application used for dynamic credentials                  |
 
 ## Usage
- - clone repo
- - edit config/management_groups_tree.json , dont change keys, only values. Remeber that names must be unique
- - provide value for the `parent_mng_group_name` variable at Workspace variables, this is your root management group name
- - run `terraform init` and `terraform apply`
- 
-## Module Structure
+
+1. Clone the repository.
+2. Edit `config/management_groups_tree.json`. **Do not change the keys**, only modify 'name' values if you don't want to use default names. Ensure all names are unique.
+3. Set the `parent_mng_group_name` variable in the Terraform Cloud Workspace, this is your root management group name.
+4. Deploy
+
+## Deployment Structure
 
 ```
 .
 ├── main.tf                                 # Main resource definitions
 ├── variables.tf                            # Input variables
 ├── outputs.tf                              # Output values
-├── versions.tf                             # Provider and terraform versions
+├── versions.tf                             # Provider and Terraform versions
 ├── locals.tf                               # Local variables
-└── config/management_groups_tree.json      # Management groups tree configuration
+└── config/management_groups_tree.json      # Management group tree configuration
 ```
 
 ## Next Steps
 
-After deploying this core deployment, proceed with:
-1. Subscription management deployment
+After deploying this core module, continue with:
+
+1. Subscription management deployment\import
 2. Policy deployments:
-   - Management policies (tags, naming, resources)
-   - Compliance policies (SOC2 and others industries known policies)
+   - Management policies (tags, naming standards, resource restrictions)
+   - Compliance policies (SOC2, industry-specific standards)
    - Internal security policies
 
 ## Contributing
 
-Please refer to the contribution guidelines for this project.
+Please refer to the project's contribution guidelines.

@@ -42,3 +42,7 @@ terraform.rc
 
 # windsurf rules
 .windsurfrules
+
+# ignore the following files
+# - .DS_Store: macOS file that stores custom attributes of a folder
+**/.DS_Store
