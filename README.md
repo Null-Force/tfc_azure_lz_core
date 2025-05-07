@@ -39,8 +39,8 @@ Deploy core infrastructure for an Azure Landing Zone using Terraform Cloud. This
 ## Usage
 
 1. Clone the repository.
-2. Edit `config/management_groups_tree.json`. **Do not change the keys**, only modify 'name' values if you don't want to use default names. Ensure all names are unique.
-3. Set the `parent_mng_group_name` variable in the Terraform Cloud Workspace, this is your root management group name.
+2. (Optional) Edit `config/management_groups_tree.json`. **Do not change the keys**, only modify 'name' values if you don't want to use default names. Ensure all names are unique.
+3. Set the `parent_mng_group_name` variable in the Terraform Cloud Workspace, this is your root management group name. (Default value: null_power)
 4. Deploy
 
 ## Deployment Structure
